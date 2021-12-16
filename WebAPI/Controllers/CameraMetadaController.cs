@@ -8,7 +8,8 @@ using WebAPI.Models;
 namespace WebAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/v{v:apiVersion}/")]
+  
     public class CameraMetadataController : ControllerBase
     {
         private CameraMetadataDBContext _context;

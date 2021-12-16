@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +25,22 @@ namespace WebAPI
         {
             services.AddDbContext<CameraMetadataDBContext>(options => options.UseSqlServer("buraya credentiallar"));
             //services.AddDbContext<CameraMetadataDBContext>(options => options.UseSqlServer("Server = localhost\\SQLEXPRESS; Database = master; Trusted_Connection = True; "));
+
+           // services.AddVersionedApiExplorer(options => options.SubstituteApiVersionInUrl = true);
+
+            
+            services.AddApiVersioning(config =>
+            {
+                config.DefaultApiVersion = new ApiVersion(1, 0);
+                config.AssumeDefaultVersionWhenUnspecified = true;
+                config.ReportApiVersions = true;
+            });
+
+            services.AddVersionedApiExplorer(o =>
+            {
+                o.GroupNameFormat = "'v'VVV";
+                o.SubstituteApiVersionInUrl = true;
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -51,6 +69,7 @@ namespace WebAPI
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }
