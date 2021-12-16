@@ -22,6 +22,7 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<CameraMetadataDBContext>(options => options.UseSqlServer("buraya credentiallar"));
+            //services.AddDbContext<CameraMetadataDBContext>(options => options.UseSqlServer("Server = localhost\\SQLEXPRESS; Database = master; Trusted_Connection = True; "));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

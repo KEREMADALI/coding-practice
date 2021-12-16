@@ -18,7 +18,7 @@ namespace WebAPI.Models
         //{
         //    if (optionsBuilder.IsConfigured == false)
         //    {
-        //        //optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=master;Trusted_Connection=True;");
+        //        optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=master;Trusted_Connection=True;");
         //    }
         //}
 
