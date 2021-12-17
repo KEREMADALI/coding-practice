@@ -60,5 +60,21 @@ namespace WebAPI.Controllers
             
         }
 
+
+        [HttpPost("{camId}/initiliaze")]
+        public IActionResult initiliaze(int camId)
+        {
+
+            CameraMetadata foundCameraMetadata = _context.CameraMetadata.FirstOrDefault(x => x.cam_id == camId);
+            if (foundCameraMetadata == null) 
+            {
+                return StatusCode(404, $"Couldn't found camera with id: {camId}");
+            }
+            foundCameraMetadata.initiliazed_at = DateTime.Now;
+            _context.SaveChanges();
+            return StatusCode(202);
+
+        }
+
     }
 }
