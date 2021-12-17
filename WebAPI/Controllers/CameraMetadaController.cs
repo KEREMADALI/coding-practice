@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using WebAPI.Models;
@@ -26,7 +27,7 @@ namespace WebAPI.Controllers
             return _context.CameraMetadata.ToList();
         }
 
-        [HttpGet("GetById")]
+        [HttpGet("{id}/GetById")]
         public IEnumerable<CameraMetadata> GetById(int id)
         {
             return _context.CameraMetadata.Where(x => x.cam_id == id).ToList();
@@ -43,13 +44,21 @@ namespace WebAPI.Controllers
             return foundCamerametaDatas;
         }
 
-        //[HttpPost]
-        //public void Add(string camera)
-        //{
+        [HttpPost("{camId}/onboard")]
+        public IActionResult OnBoard(int camId, [FromBody] CameraMetadataDTO cameraMetadataDTO)
+        {
+
+            if (_context.CameraMetadata.Any(x => x.cam_id == camId)) 
+            {
+                return StatusCode(403, "Already exist");
+            }
             
-
-
-        //}
+            CameraMetadata cameraMetadata = new CameraMetadata(camId, cameraMetadataDTO.camera_name, cameraMetadataDTO.firmware_version);
+            _context.CameraMetadata.Add(cameraMetadata);
+            _context.SaveChanges();
+            return StatusCode(202);
+            
+        }
 
     }
 }

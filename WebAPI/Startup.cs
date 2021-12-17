@@ -23,8 +23,8 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<CameraMetadataDBContext>(options => options.UseSqlServer("buraya credentiallar"));
-            //services.AddDbContext<CameraMetadataDBContext>(options => options.UseSqlServer("Server = localhost\\SQLEXPRESS; Database = master; Trusted_Connection = True; "));
+            //services.AddDbContext<CameraMetadataDBContext>(options => options.UseSqlServer("buraya credentiallar"));
+            services.AddDbContext<CameraMetadataDBContext>(options => options.UseSqlServer("Server = localhost\\SQLEXPRESS; Database = master; Trusted_Connection = True; "));
 
            // services.AddVersionedApiExplorer(options => options.SubstituteApiVersionInUrl = true);
 

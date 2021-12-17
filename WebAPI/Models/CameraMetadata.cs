@@ -12,9 +12,9 @@ namespace WebAPI.Models
         public string firmware_version { get; set; }
         public string container_name { get; set; }
         public string name_of_stored_picture { get; set; }
-        public DateTime created_at { get; set; }
-        public DateTime onboarded_at { get; set; }
-        public DateTime initiliazed_at { get; set; }
+        public DateTime? created_at { get; set; }
+        public DateTime? onboarded_at { get; set; }
+        public DateTime? initiliazed_at { get; set; }
 
 
         /// <summary>
@@ -41,6 +41,14 @@ namespace WebAPI.Models
             this.created_at = created_at;
             this.onboarded_at = onboarded_at;
             this.initiliazed_at = initiliazed_at;
+        }
+
+        public CameraMetadata(int cam_id, string camera_name, string firmware_version)
+        {
+            this.cam_id = cam_id;
+            this.camera_name = camera_name;
+            this.firmware_version = firmware_version;
+
         }
     }
 }
