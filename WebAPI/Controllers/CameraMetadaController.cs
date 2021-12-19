@@ -31,6 +31,9 @@ namespace WebAPI.Controllers
         public IEnumerable<CameraMetadata> GetById(int id)
         {
             return _context.CameraMetadata.Where(x => x.cam_id == id).ToList();
+
+            // Get yapmanın 2. yolu bence daha iyisi :)
+            // return _context.Set<CameraMetadata>().Where(x => x.cam_id == id).ToList();
         }
 
         [HttpGet("GetByCameraName")]
@@ -54,7 +57,11 @@ namespace WebAPI.Controllers
             }
             
             CameraMetadata cameraMetadata = new CameraMetadata(camId, cameraMetadataDTO.camera_name, cameraMetadataDTO.firmware_version);
-            _context.CameraMetadata.Add(cameraMetadata);
+            //_context.CameraMetadata.Add(cameraMetadata);
+
+            // Dbye ekleme yöntemi farklı sekilde, entity state degiştikçe yaptıgı işlem de degişiyir (add/remove/modify)
+            var addedCameraMetadata = _context.Entry(cameraMetadata);
+            addedCameraMetadata.State = Microsoft.EntityFrameworkCore.EntityState.Added;
             _context.SaveChanges();
             return StatusCode(202);
             
