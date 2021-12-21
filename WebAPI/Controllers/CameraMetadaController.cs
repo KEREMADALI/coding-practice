@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using WebAPI.Models;
@@ -10,7 +8,7 @@ namespace WebAPI.Controllers
 {
     [ApiController]
     [Route("api/v{v:apiVersion}/")]
-  
+
     public class CameraMetadataController : ControllerBase
     {
         private CameraMetadataDBContext _context;
@@ -50,37 +48,59 @@ namespace WebAPI.Controllers
         [HttpPost("{camId}/onboard")]
         public IActionResult OnBoard(int camId, [FromBody] CameraMetadataDTO cameraMetadataDTO)
         {
-
-            if (_context.CameraMetadata.Any(x => x.cam_id == camId)) 
+            if (_context.CameraMetadata.Any(x => x.cam_id == camId))
             {
                 return StatusCode(403, "Already exist");
             }
-            
-            CameraMetadata cameraMetadata = new CameraMetadata(camId, cameraMetadataDTO.camera_name, cameraMetadataDTO.firmware_version);
-            //_context.CameraMetadata.Add(cameraMetadata);
 
-            // Dbye ekleme yöntemi farklı sekilde, entity state degiştikçe yaptıgı işlem de degişiyir (add/remove/modify)
-            var addedCameraMetadata = _context.Entry(cameraMetadata);
-            addedCameraMetadata.State = Microsoft.EntityFrameworkCore.EntityState.Added;
-            _context.SaveChanges();
-            return StatusCode(202);
-            
+            return Create<CameraMetadata>(
+                new CameraMetadata(
+                    camId,
+                    cameraMetadataDTO.camera_name,
+                    cameraMetadataDTO.firmware_version));
         }
-
 
         [HttpPost("{camId}/initiliaze")]
         public IActionResult initiliaze(int camId)
         {
 
             CameraMetadata foundCameraMetadata = _context.CameraMetadata.FirstOrDefault(x => x.cam_id == camId);
-            if (foundCameraMetadata == null) 
+            if (foundCameraMetadata == null)
             {
                 return StatusCode(404, $"Couldn't found camera with id: {camId}");
             }
-            foundCameraMetadata.initiliazed_at = DateTime.Now;
+            foundCameraMetadata.initialized_at = DateTime.Now;
             _context.SaveChanges();
             return StatusCode(202);
 
+        }
+
+        private IActionResult Create<TEntity>(TEntity entity)
+          where TEntity : class
+        {
+            if (entity == null)
+            {
+                return StatusCode(417, "Cannot create a null record!");
+            }
+
+            try
+            {
+                // 1st Way
+                var addedEntry = _context.Entry(entity);
+                addedEntry.State = Microsoft.EntityFrameworkCore.EntityState.Added;
+
+                // 2nd Way
+                //var dataSet = _context.Set<TEntity>();
+                //dataSet.Add(entity);
+
+                _context.SaveChanges();
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(417, $"An exception occured during record addition. Exception: {exception}");
+            }
+
+            return StatusCode(202, entity);
         }
 
     }

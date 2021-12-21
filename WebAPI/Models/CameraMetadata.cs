@@ -14,7 +14,7 @@ namespace WebAPI.Models
         public string name_of_stored_picture { get; set; }
         public DateTime? created_at { get; set; }
         public DateTime? onboarded_at { get; set; }
-        public DateTime? initiliazed_at { get; set; }
+        public DateTime? initialized_at { get; set; }
 
 
         /// <summary>
@@ -29,8 +29,8 @@ namespace WebAPI.Models
         /// <param name="created_at"></param>
         /// <param name="onboarded_at"></param>
         /// <param name="initiliazed_at"></param>
-        public CameraMetadata(int cam_id, int image_id, string camera_name, string firmware_version, string container_name, 
-            string name_of_stored_picture, DateTime created_at, DateTime onboarded_at, DateTime initiliazed_at) 
+        public CameraMetadata(int cam_id, int image_id, string camera_name, string firmware_version, string container_name,
+            string name_of_stored_picture, DateTime created_at, DateTime onboarded_at, DateTime initialiazed_at)
         {
             this.cam_id = cam_id;
             this.image_id = image_id;
@@ -40,7 +40,7 @@ namespace WebAPI.Models
             this.name_of_stored_picture = name_of_stored_picture;
             this.created_at = created_at;
             this.onboarded_at = onboarded_at;
-            this.initiliazed_at = initiliazed_at;
+            this.initialized_at = initialized_at;
         }
 
         public CameraMetadata(int cam_id, string camera_name, string firmware_version)
