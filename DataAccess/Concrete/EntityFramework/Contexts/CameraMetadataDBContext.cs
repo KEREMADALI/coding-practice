@@ -18,13 +18,16 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
         {
         }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    if (optionsBuilder.IsConfigured == false)
-        //    {
-        //        optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=master;Trusted_Connection=True;");
-        //    }
-        //}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (optionsBuilder.IsConfigured == false)
+            {
+                optionsBuilder.UseSqlServer(
+                    "Server=localhost\\SQLEXPRESS;" +
+                    "Database=master;" +
+                    "Trusted_Connection=True;");
+            }
+        }
 
         public DbSet<CameraMetadata> CameraMetadata { get; set; }
     }

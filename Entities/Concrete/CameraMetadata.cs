@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Concrete
 {
-    public class CameraMetadata : IEntity 
+    public class CameraMetadata : IEntity
     {
         [Key]
         public int cam_id { get; protected set; }
@@ -19,7 +19,7 @@ namespace Entities.Concrete
         public string name_of_stored_picture { get; set; }
         public DateTime? created_at { get; set; }
         public DateTime? onboarded_at { get; set; }
-        public DateTime? initiliazed_at { get; set; }
+        public DateTime? initialized_at { get; set; }
 
 
         /// <summary>
@@ -33,9 +33,9 @@ namespace Entities.Concrete
         /// <param name="name_of_stored_picture"></param>
         /// <param name="created_at"></param>
         /// <param name="onboarded_at"></param>
-        /// <param name="initiliazed_at"></param>
+        /// <param name="initialized_at"></param>
         public CameraMetadata(int cam_id, int image_id, string camera_name, string firmware_version, string container_name,
-            string name_of_stored_picture, DateTime created_at, DateTime onboarded_at, DateTime initiliazed_at)
+            string name_of_stored_picture, DateTime created_at, DateTime onboarded_at, DateTime initialized_at)
         {
             this.cam_id = cam_id;
             this.image_id = image_id;
@@ -45,7 +45,7 @@ namespace Entities.Concrete
             this.name_of_stored_picture = name_of_stored_picture;
             this.created_at = created_at;
             this.onboarded_at = onboarded_at;
-            this.initiliazed_at = initiliazed_at;
+            this.initialized_at = initialized_at;
         }
 
         public CameraMetadata(int cam_id, string camera_name, string firmware_version)
@@ -53,7 +53,9 @@ namespace Entities.Concrete
             this.cam_id = cam_id;
             this.camera_name = camera_name;
             this.firmware_version = firmware_version;
-
         }
+
+        public CameraMetadata()
+        { }
     }
 }

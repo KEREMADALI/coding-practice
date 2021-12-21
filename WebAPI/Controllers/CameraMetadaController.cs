@@ -1,89 +1,84 @@
-﻿using Entities.Concrete;
+﻿using Business.Concrete;
+using Bussiness.Abstract;
+using DataAccess.Concrete.EntityFramework;
+using DataAccess.Concrete.EntityFramework.Contexts;
+using Entities.Concrete;
 using Entities.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
     [ApiController]
     [Route("api/v{v:apiVersion}/")]
-  
+
     public class CameraMetadataController : ControllerBase
     {
-        private CameraMetadataDBContext _context;
+        private ICameraMetadataService _cameraMetadataService;
 
-        public CameraMetadataController(CameraMetadataDBContext context)
+        public CameraMetadataController(ICameraMetadataService cameraMetadataService)
         {
-            _context = context;
+            _cameraMetadataService = cameraMetadataService;
         }
 
         [HttpGet]
-        public IEnumerable<CameraMetadata> Get()
+        public IActionResult Get()
         {
+            var result = _cameraMetadataService.GetList();
 
-            return (IEnumerable<CameraMetadata>)_context.CameraMetadata.ToList();
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+
+            return BadRequest(result.Message);
         }
 
         [HttpGet("{id}/GetById")]
-        public IEnumerable<CameraMetadata> GetById(int id)
+        public IActionResult GetById(int id)
         {
-            return _context.CameraMetadata.Where(x => x.cam_id == id).ToList();
+            var result = _cameraMetadataService.GetByCamId(id);
 
-            // Get yapmanın 2. yolu bence daha iyisi :)
-            // return _context.Set<CameraMetadata>().Where(x => x.cam_id == id).ToList();
-        }
-
-        [HttpGet("GetByCameraName")]
-        public ActionResult<IEnumerable<CameraMetadata>> GetByCameraName(string cam_name)
-        {
-            List<CameraMetadata> foundCamerametaDatas = _context.CameraMetadata.Where(x => x.camera_name == cam_name).ToList();
-            if (foundCamerametaDatas.Count == 0)
+            if (result.Success)
             {
-                return NotFound();
+                return Ok(result.Data);
             }
-            return foundCamerametaDatas;
+
+            return BadRequest(result.Message);
         }
 
         [HttpPost("{camId}/onboard")]
         public IActionResult OnBoard(int camId, [FromBody] CameraMetadataDTO cameraMetadataDTO)
         {
+            var cameraMetadata = new CameraMetadata(
+                camId,
+                cameraMetadataDTO.camera_name,
+                cameraMetadataDTO.firmware_version);
 
-            if (_context.CameraMetadata.Any(x => x.cam_id == camId)) 
+            var result = _cameraMetadataService.Add(cameraMetadata);
+
+            if (result.Success)
             {
-                return StatusCode(403, "Already exist");
+                return Ok();
             }
-            
-            CameraMetadata cameraMetadata = new CameraMetadata(camId, cameraMetadataDTO.camera_name, cameraMetadataDTO.firmware_version);
-            //_context.CameraMetadata.Add(cameraMetadata);
 
-            // Dbye ekleme yöntemi farklı sekilde, entity state degiştikçe yaptıgı işlem de degişiyir (add/remove/modify)
-            var addedCameraMetadata = _context.Entry(cameraMetadata);
-            addedCameraMetadata.State = Microsoft.EntityFrameworkCore.EntityState.Added;
-            _context.SaveChanges();
-            return StatusCode(202);
-            
+            return BadRequest(result.Message);
         }
-
 
         [HttpPost("{camId}/initiliaze")]
         public IActionResult initiliaze(int camId)
         {
+            var result = _cameraMetadataService.Initialize(camId);
 
-            CameraMetadata foundCameraMetadata = _context.CameraMetadata.FirstOrDefault(x => x.cam_id == camId);
-            if (foundCameraMetadata == null) 
+            if (result.Success)
             {
-                return StatusCode(404, $"Couldn't found camera with id: {camId}");
+                return Ok();
             }
-            foundCameraMetadata.initiliazed_at = DateTime.Now;
-            _context.SaveChanges();
-            return StatusCode(202);
 
+            return BadRequest(result.Message);
         }
-
     }
 }

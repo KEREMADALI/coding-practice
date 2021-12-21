@@ -1,3 +1,7 @@
+using Business.Concrete;
+using Bussiness.Abstract;
+using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +11,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using WebAPI.Models;
 
 namespace WebAPI
 {
@@ -20,15 +23,16 @@ namespace WebAPI
 
         public IConfiguration Configuration { get; }
 
+        public ICameraMetadataService CameraMetadataService { get; }
+
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<CameraMetadataDBContext>(options => options.UseSqlServer("buraya credentiallar"));
-            services.AddDbContext<CameraMetadataDBContext>(options => options.UseSqlServer("Server = localhost\\SQLEXPRESS; Database = master; Trusted_Connection = True; "));
+            // Dependency injection of EF and business logic
+            services.AddScoped<ICameraMetadataDal, EFCameraMetadataDal>();
+            services.AddScoped<ICameraMetadataService, CameraMetadataManager>();
 
-           // services.AddVersionedApiExplorer(options => options.SubstituteApiVersionInUrl = true);
-
-            
             services.AddApiVersioning(config =>
             {
                 config.DefaultApiVersion = new ApiVersion(1, 0);
