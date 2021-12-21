@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Entities.Concrete;
+using Entities.DTOs;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections;
@@ -24,7 +26,7 @@ namespace WebAPI.Controllers
         public IEnumerable<CameraMetadata> Get()
         {
 
-            return _context.CameraMetadata.ToList();
+            return (IEnumerable<CameraMetadata>)_context.CameraMetadata.ToList();
         }
 
         [HttpGet("{id}/GetById")]

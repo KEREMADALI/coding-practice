@@ -1,14 +1,18 @@
-using System;
+﻿using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace WebAPI.Models
+namespace DataAccess.Concrete.EntityFramework.Contexts
 {
-	public partial class CameraMetadataDBContext : DbContext
-	{
-		public CameraMetadataDBContext(DbContextOptions<CameraMetadataDBContext> options) 
-			: base(options)
-		{ }
+    public partial class CameraMetadataDBContext : DbContext
+    {
+        public CameraMetadataDBContext(DbContextOptions<CameraMetadataDBContext> options)
+            : base(options)
+        { }
 
         public CameraMetadataDBContext()
         {
@@ -23,5 +27,5 @@ namespace WebAPI.Models
         //}
 
         public DbSet<CameraMetadata> CameraMetadata { get; set; }
-	}
+    }
 }

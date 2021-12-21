@@ -1,9 +1,14 @@
+﻿using Core.Entities;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace WebAPI.Models
+namespace Entities.Concrete
 {
-    public class CameraMetadata
+    public class CameraMetadata : IEntity 
     {
         [Key]
         public int cam_id { get; protected set; }
@@ -29,8 +34,8 @@ namespace WebAPI.Models
         /// <param name="created_at"></param>
         /// <param name="onboarded_at"></param>
         /// <param name="initiliazed_at"></param>
-        public CameraMetadata(int cam_id, int image_id, string camera_name, string firmware_version, string container_name, 
-            string name_of_stored_picture, DateTime created_at, DateTime onboarded_at, DateTime initiliazed_at) 
+        public CameraMetadata(int cam_id, int image_id, string camera_name, string firmware_version, string container_name,
+            string name_of_stored_picture, DateTime created_at, DateTime onboarded_at, DateTime initiliazed_at)
         {
             this.cam_id = cam_id;
             this.image_id = image_id;
