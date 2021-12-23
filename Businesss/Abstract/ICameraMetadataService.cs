@@ -12,5 +12,6 @@ namespace Bussiness.Abstract
         IResult Update(CameraMetadata cameraMetadata);
         IResult Delete(CameraMetadata cameraMetadata);
         IResult Initialize(int id);
+        IResult DeleteById(int id);
     }
 }

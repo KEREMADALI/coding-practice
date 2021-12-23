@@ -80,5 +80,18 @@ namespace WebAPI.Controllers
 
             return BadRequest(result.Message);
         }
+
+        [HttpPost("{camId}/deleteById")]
+        public IActionResult deleteById(int camId)
+        {
+            var result = _cameraMetadataService.DeleteById(camId);
+
+            if (result.Success)
+            {
+                return Ok();
+            }
+
+            return BadRequest(result.Message);
+        }
     }
 }
