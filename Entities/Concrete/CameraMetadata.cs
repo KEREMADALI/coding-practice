@@ -20,7 +20,6 @@ namespace Entities.Concrete
         public DateTime? created_at { get; set; }
         public DateTime? onboarded_at { get; set; }
         public DateTime? initialized_at { get; set; }
-                         
 
         /// <summary>
         /// Constructor for CameraMetadata

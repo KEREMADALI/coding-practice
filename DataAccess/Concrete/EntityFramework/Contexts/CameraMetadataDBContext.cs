@@ -16,6 +16,7 @@ namespace DataAccess.Concrete.EntityFramework.Contexts
 
         public CameraMetadataDBContext()
         {
+            Database.Migrate();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
