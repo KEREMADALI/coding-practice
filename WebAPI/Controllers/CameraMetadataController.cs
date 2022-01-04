@@ -14,7 +14,6 @@ namespace WebAPI.Controllers
 {
     [ApiController]
     [Route("api/v{v:apiVersion}/")]
-
     public class CameraMetadataController : ControllerBase
     {
         private ICameraMetadataService _cameraMetadataService;
@@ -37,7 +36,7 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
 
-        [HttpGet("{id}/get_metadata")]
+        [HttpGet("{id}/camera_metadata")]
         public IActionResult GetMetadata(int id)
         {
             var result = _cameraMetadataService.GetByCamId(id);
