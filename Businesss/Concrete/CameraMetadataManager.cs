@@ -56,7 +56,7 @@ namespace Business.Concrete
 
             if (cameraMetadataList == null || cameraMetadataList.Any() == false)
             {
-                return new ErrorDataResult<List<CameraMetadata>>("There is no camera");
+                return new ErrorDataResult<List<CameraMetadata>>(Messages.CameraMetadataDoesNotExists);
             }
 
             return new SuccessDataResult<List<CameraMetadata>>(cameraMetadataList);
