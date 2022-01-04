@@ -75,7 +75,7 @@ namespace Business.Concrete
 
             if (cameraMetadata == null)
             {
-                return new ErrorDataResult<CameraMetadata>(string.Format(Messages.CameraMetadataDoesNotExists, id));
+                return new ErrorResult(string.Format(Messages.CameraMetadataDoesNotExists, id));
             }
 
             cameraMetadata.initialized_at = DateTime.Now;
@@ -89,15 +89,37 @@ namespace Business.Concrete
 
             if (cameraMetadata == null)
             {
-                return new ErrorDataResult<CameraMetadata>(string.Format(Messages.CameraMetadataDoesNotExists, id));
+                return new ErrorResult(string.Format(Messages.CameraMetadataDoesNotExists, id));
             }
             return Delete(cameraMetadata);
         }
 
+        public IResult UploadImage(int id, int imageId, byte[] imageAsBytes)
+        {
+            var cameraMetadata = GetCameraMetadataById(id);
+
+            if (cameraMetadata?.onboarded_at == null)
+            {
+                return new ErrorResult(string.Format(Messages.CameraMetadataDoesNotExists, id));
+            }
+
+            if (cameraMetadata.initialized_at == null)
+            {
+                return new ErrorResult(string.Format(Messages.CameraMetadataNotInitialized, id));
+            }
+
+            // Image saved to image store
+
+
+            // CameraMetadata updated
+            cameraMetadata.image_id = imageId;
+
+            return Update(cameraMetadata);
+        }
+
         private CameraMetadata GetCameraMetadataById(int id)
         {
-            var cameraMetadata = _cameraMetadataDal.Get(x => x.cam_id == id);
-            return cameraMetadata;
+            return _cameraMetadataDal.Get(x => x.cam_id == id); ;
         }
     }
 }

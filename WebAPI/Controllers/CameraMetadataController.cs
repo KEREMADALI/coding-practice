@@ -67,6 +67,19 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
 
+        [HttpPost("{camId}/upload_image")]
+        public IActionResult UploadImage(int camId, [FromBody] ImageDTO image)
+        {
+            var result = _cameraMetadataService.UploadImage(camId, image.image_id, image.image_as_bytes);
+
+            if (result.Success)
+            {
+                return Ok();
+            }
+
+            return BadRequest(result.Message);
+        }
+
         [HttpPatch("{camId}/initiliaze")]
         public IActionResult Initiliaze(int camId)
         {

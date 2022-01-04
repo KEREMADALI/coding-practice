@@ -13,5 +13,6 @@ namespace Bussiness.Abstract
         IResult Delete(CameraMetadata cameraMetadata);
         IResult Initialize(int id);
         IResult DeleteById(int id);
+        IResult UploadImage(int camId, int image_id, byte[] image_as_bytes);
     }
 }
