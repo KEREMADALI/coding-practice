@@ -37,8 +37,8 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
 
-        [HttpGet("{id}/GetById")]
-        public IActionResult GetById(int id)
+        [HttpGet("{id}/get_metadata")]
+        public IActionResult GetMetadata(int id)
         {
             var result = _cameraMetadataService.GetByCamId(id);
 
@@ -68,8 +68,8 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
 
-        [HttpPost("{camId}/initiliaze")]
-        public IActionResult initiliaze(int camId)
+        [HttpPatch("{camId}/initiliaze")]
+        public IActionResult Initiliaze(int camId)
         {
             var result = _cameraMetadataService.Initialize(camId);
 
@@ -81,8 +81,8 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
 
-        [HttpPost("{camId}/deleteById")]
-        public IActionResult deleteById(int camId)
+        [HttpDelete("{camId}/delete")]
+        public IActionResult Delete(int camId)
         {
             var result = _cameraMetadataService.DeleteById(camId);
 

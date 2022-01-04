@@ -44,7 +44,7 @@ namespace Business.Concrete
 
             if (cameraMetadata == null)
             {
-                return new ErrorDataResult<CameraMetadata>(string.Format(Messages.CameraMetadataDoesNotExists, cameraMetadata.cam_id));
+                return new ErrorDataResult<CameraMetadata>(string.Format(Messages.CameraMetadataDoesNotExists, id));
             }
 
             return new SuccessDataResult<CameraMetadata>(cameraMetadata);
@@ -83,18 +83,18 @@ namespace Business.Concrete
             return Update(cameraMetadata);
         }
 
-        public IResult DeleteById(int id) 
+        public IResult DeleteById(int id)
         {
             var cameraMetadata = GetCameraMetadataById(id);
 
-            if (cameraMetadata == null) 
+            if (cameraMetadata == null)
             {
                 return new ErrorDataResult<CameraMetadata>(string.Format(Messages.CameraMetadataDoesNotExists, id));
             }
             return Delete(cameraMetadata);
         }
 
-        private CameraMetadata GetCameraMetadataById(int id) 
+        private CameraMetadata GetCameraMetadataById(int id)
         {
             var cameraMetadata = _cameraMetadataDal.Get(x => x.cam_id == id);
             return cameraMetadata;

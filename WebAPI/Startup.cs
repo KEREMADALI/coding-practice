@@ -1,7 +1,9 @@
+using System.Runtime.Serialization;
 using Business.Concrete;
 using Bussiness.Abstract;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
+using DataAccess.Concrete.EntityFramework.Contexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -29,10 +31,6 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Dependency injection of EF and business logic
-            services.AddScoped<ICameraMetadataDal, EFCameraMetadataDal>();
-            services.AddScoped<ICameraMetadataService, CameraMetadataManager>();
-
             services.AddApiVersioning(config =>
             {
                 config.DefaultApiVersion = new ApiVersion(1, 0);
