@@ -1,14 +1,9 @@
-using System.Runtime.Serialization;
-using Business.Concrete;
+using System;
 using Bussiness.Abstract;
-using DataAccess.Abstract;
-using DataAccess.Concrete.EntityFramework;
-using DataAccess.Concrete.EntityFramework.Contexts;
+using DataAccess.Constants;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Versioning;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,6 +26,29 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Get Azure Credentials
+            var azureUserId = Environment.GetEnvironmentVariable(EnvironmentVariables.AzureUserId, EnvironmentVariableTarget.User);
+
+            if (string.IsNullOrEmpty(azureUserId))
+            {
+                Console.Error.Write($"Failed to retrieve \"{EnvironmentVariables.AzureUserId}\" from user Environment Variables.");
+            }
+            else
+            {
+                Configuration[EnvironmentVariables.AzureUserId] = azureUserId;
+            }
+
+            var azurePassword = Environment.GetEnvironmentVariable(EnvironmentVariables.AzurePassword, EnvironmentVariableTarget.User);
+
+            if (string.IsNullOrEmpty(azurePassword))
+            {
+                Console.Error.Write($"Failed to retrieve \"{EnvironmentVariables.AzurePassword}\" from user User Environment Variables.");
+            }
+            else
+            {
+                Configuration[EnvironmentVariables.AzurePassword] = azurePassword;
+            }
+
             services.AddApiVersioning(config =>
             {
                 config.DefaultApiVersion = new ApiVersion(1, 0);

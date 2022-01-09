@@ -38,7 +38,7 @@ namespace Business.Concrete
             return new SuccessResult(string.Format(Messages.CameraMetadataDeleted, cameraMetadata.cam_id)); ;
         }
 
-        public IDataResult<CameraMetadata> GetByCamId(int id)
+        public IDataResult<CameraMetadata> GetByCamId(Guid id)
         {
             var cameraMetadata = GetCameraMetadataById(id);
 
@@ -69,7 +69,7 @@ namespace Business.Concrete
             return new SuccessResult(string.Format(Messages.CameraMetadataUpdated, cameraMetadata.cam_id)); ;
         }
 
-        public IResult Initialize(int id)
+        public IResult Initialize(Guid id)
         {
             var cameraMetadata = GetCameraMetadataById(id);
 
@@ -83,7 +83,7 @@ namespace Business.Concrete
             return Update(cameraMetadata);
         }
 
-        public IResult DeleteById(int id)
+        public IResult DeleteById(Guid id)
         {
             var cameraMetadata = GetCameraMetadataById(id);
 
@@ -94,7 +94,7 @@ namespace Business.Concrete
             return Delete(cameraMetadata);
         }
 
-        public IResult UploadImage(int id, int imageId, byte[] imageAsBytes)
+        public IResult UploadImage(Guid id, Guid imageId, byte[] imageAsBytes)
         {
             var cameraMetadata = GetCameraMetadataById(id);
 
@@ -117,7 +117,7 @@ namespace Business.Concrete
             return Update(cameraMetadata);
         }
 
-        private CameraMetadata GetCameraMetadataById(int id)
+        private CameraMetadata GetCameraMetadataById(Guid id)
         {
             return _cameraMetadataDal.Get(x => x.cam_id == id); ;
         }
