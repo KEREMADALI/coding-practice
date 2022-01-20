@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Core.Utilities;
 using Entities.Concrete;
@@ -6,13 +7,13 @@ namespace Bussiness.Abstract
 {
     public interface ICameraMetadataService
     {
-        IDataResult<CameraMetadata> GetByCamId(int id);
+        IDataResult<CameraMetadata> GetByCamId(Guid id);
         IDataResult<List<CameraMetadata>> GetList();
         IResult Add(CameraMetadata cameraMetadata);
         IResult Update(CameraMetadata cameraMetadata);
         IResult Delete(CameraMetadata cameraMetadata);
-        IResult Initialize(int id);
-        IResult DeleteById(int id);
-        IResult UploadImage(int camId, int image_id, byte[] image_as_bytes);
+        IResult Initialize(Guid id);
+        IResult DeleteById(Guid id);
+        IResult UploadImage(Guid camId, Guid image_id, byte[] image_as_bytes);
     }
 }

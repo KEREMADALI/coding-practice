@@ -11,8 +11,8 @@ namespace Entities.Concrete
     public class CameraMetadata : IEntity
     {
         [Key]
-        public int cam_id { get; protected set; }
-        public int image_id { get; set; }
+        public Guid cam_id { get; protected set; }
+        public Guid image_id { get; set; }
         public string camera_name { get; set; }
         public string firmware_version { get; set; }
         public string container_name { get; set; }
@@ -33,7 +33,7 @@ namespace Entities.Concrete
         /// <param name="created_at"></param>
         /// <param name="onboarded_at"></param>
         /// <param name="initialized_at"></param>
-        public CameraMetadata(int cam_id, int image_id, string camera_name, string firmware_version, string container_name,
+        public CameraMetadata(Guid cam_id, Guid image_id, string camera_name, string firmware_version, string container_name,
             string name_of_stored_picture, DateTime created_at, DateTime onboarded_at, DateTime initialized_at)
         {
             this.cam_id = cam_id;
@@ -47,7 +47,7 @@ namespace Entities.Concrete
             this.initialized_at = initialized_at;
         }
 
-        public CameraMetadata(int cam_id, string camera_name, string firmware_version)
+        public CameraMetadata(Guid cam_id, string camera_name, string firmware_version)
         {
             this.cam_id = cam_id;
             this.camera_name = camera_name;

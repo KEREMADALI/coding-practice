@@ -37,7 +37,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("{id}/camera_metadata")]
-        public IActionResult GetMetadata(int id)
+        public IActionResult GetMetadata(Guid id)
         {
             var result = _cameraMetadataService.GetByCamId(id);
 
@@ -50,7 +50,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("{camId}/onboard")]
-        public IActionResult OnBoard(int camId, [FromBody] CameraMetadataDTO cameraMetadataDTO)
+        public IActionResult OnBoard(Guid camId, [FromBody] CameraMetadataDTO cameraMetadataDTO)
         {
             var cameraMetadata = new CameraMetadata(
                 camId,
@@ -68,7 +68,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("{camId}/upload_image")]
-        public IActionResult UploadImage(int camId, [FromBody] ImageDTO image)
+        public IActionResult UploadImage(Guid camId, [FromBody] ImageDTO image)
         {
             var result = _cameraMetadataService.UploadImage(camId, image.image_id, image.image_as_bytes);
 
@@ -81,7 +81,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPatch("{camId}/initiliaze")]
-        public IActionResult Initiliaze(int camId)
+        public IActionResult Initiliaze(Guid camId)
         {
             var result = _cameraMetadataService.Initialize(camId);
 
@@ -94,7 +94,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("{camId}/delete")]
-        public IActionResult Delete(int camId)
+        public IActionResult Delete(Guid camId)
         {
             var result = _cameraMetadataService.DeleteById(camId);
 
