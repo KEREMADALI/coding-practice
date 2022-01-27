@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Core.Utilities;
 using Entities.Concrete;
 
-namespace Bussiness.Abstract
+namespace Business.Abstract
 {
     public interface ICameraMetadataService
     {

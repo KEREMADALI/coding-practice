@@ -1,13 +1,13 @@
 using System;
 using Autofac;
 using Business.Concrete;
-using Bussiness.Abstract;
+using Business.Abstract;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 
 namespace Business.DependencyInjectors.Autofac
 {
-    public class AutofacBussinessModule : Module
+    public class AutofacBusinessModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {

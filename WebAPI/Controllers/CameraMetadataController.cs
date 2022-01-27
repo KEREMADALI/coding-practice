@@ -1,14 +1,8 @@
-﻿using Business.Concrete;
-using Bussiness.Abstract;
-using DataAccess.Concrete.EntityFramework;
-using DataAccess.Concrete.EntityFramework.Contexts;
+﻿using Business.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace WebAPI.Controllers
 {

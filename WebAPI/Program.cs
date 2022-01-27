@@ -1,17 +1,8 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Business.Concrete;
 using Business.DependencyInjectors.Autofac;
-using Bussiness.Abstract;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebAPI
 {
@@ -27,7 +18,7 @@ namespace WebAPI
             .UseServiceProviderFactory(new AutofacServiceProviderFactory())
             .ConfigureContainer<ContainerBuilder>(builder =>
             {
-                builder.RegisterModule(new AutofacBussinessModule());
+                builder.RegisterModule(new AutofacBusinessModule());
             })
             .ConfigureWebHostDefaults(webBuilder =>
             {

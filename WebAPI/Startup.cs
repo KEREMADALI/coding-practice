@@ -1,5 +1,5 @@
 using System;
-using Bussiness.Abstract;
+using Business.Abstract;
 using DataAccess.Constants;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,22 +27,22 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             // Get Azure Credentials
-            var azureUserId = Environment.GetEnvironmentVariable(EnvironmentVariables.AzureUserId, EnvironmentVariableTarget.User);
+            var azureUserId = Environment.GetEnvironmentVariable(EnvironmentVariables.AzureUserId);
 
             if (string.IsNullOrEmpty(azureUserId))
             {
-                Console.Error.Write($"Failed to retrieve \"{EnvironmentVariables.AzureUserId}\" from user Environment Variables.");
+                Console.Error.Write($"Failed to retrieve \"{EnvironmentVariables.AzureUserId}\" from user Environment Variables.\n");
             }
             else
             {
                 Configuration[EnvironmentVariables.AzureUserId] = azureUserId;
             }
 
-            var azurePassword = Environment.GetEnvironmentVariable(EnvironmentVariables.AzurePassword, EnvironmentVariableTarget.User);
+            var azurePassword = Environment.GetEnvironmentVariable(EnvironmentVariables.AzurePassword);
 
             if (string.IsNullOrEmpty(azurePassword))
             {
-                Console.Error.Write($"Failed to retrieve \"{EnvironmentVariables.AzurePassword}\" from user User Environment Variables.");
+                Console.Error.Write($"Failed to retrieve \"{EnvironmentVariables.AzurePassword}\" from user User Environment Variables.\n");
             }
             else
             {
